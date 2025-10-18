@@ -1,73 +1,206 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ur" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ProCool Solutions - Easypaisa Donation</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pay Me — EasyPaisa QR</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f4f8;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      text-align: center;
-      direction: rtl;
+    :root{
+      --bg:#f7fbf6;
+      --card:#ffffff;
+      --accent:#0b9a4b;
+      --muted:#4b5563;
+      --shadow: 0 6px 18px rgba(11,154,75,0.08);
+      font-family: "Segoe UI", Roboto, "Noto Nastaliq Urdu", sans-serif;
     }
-    header {
-      background-color: #0078d7;
-      color: white;
-      padding: 20px 10px;
-      font-size: 1.8em;
-      font-weight: bold;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#e9f8ef 0%,var(--bg) 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      padding:24px;
+      color:#06261a;
     }
-    main {
-      max-width: 400px;
-      margin: 30px auto;
-      background: white;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    .card{
+      width:100%;
+      max-width:760px;
+      background:var(--card);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      padding:28px;
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:20px;
+      align-items:center;
     }
-    h2 {
-      color: #0078d7;
+    @media (max-width:800px){
+      .card{grid-template-columns:1fr; padding:18px}
     }
-    p {
-      font-size: 1.1em;
-      margin: 15px 0;
-      line-height: 1.5em;
+    .info{
+      padding:6px 12px;
     }
-    .number-box {
-      font-size: 1.5em;
-      font-weight: bold;
-      background-color: #d1e7ff;
-      padding: 12px 20px;
-      border-radius: 8px;
-      margin: 20px 0;
-      user-select: all;
+    h1{margin:0 0 8px 0; font-size:22px}
+    p{margin:6px 0; color:var(--muted)}
+    .phone-box{
+      margin-top:12px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
     }
-    .qr-code {
-      margin: 20px 0;
+    .ph{
+      background:#f1fdf6;
+      border:1px solid rgba(11,154,75,0.08);
+      padding:8px 12px;
+      border-radius:10px;
+      font-weight:600;
     }
-    footer {
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #666;
+    .btn{
+      display:inline-block;
+      border:0;
+      background:var(--accent);
+      color:white;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      box-shadow:0 6px 12px rgba(11,154,75,0.12);
     }
+    .mutebtn{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid #e6eef0;
+      padding:8px 12px;
+      border-radius:10px;
+      cursor:pointer;
+    }
+    .qr-area{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:12px;
+    }
+    #qrcode{background:white; padding:14px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.04)}
+    .small{font-size:13px; color:var(--muted)}
+    .actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
+    footer{margin-top:18px; font-size:12px; color:var(--muted); text-align:center}
+    /* RTL tweak for Urdu */
+    .ltr{direction:ltr; text-align:left}
   </style>
+  <!-- QRCode.js library (small, client-side) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 </head>
 <body>
-  <header>ProCool Solutions</header>
-  <main>
-    <h2>آپ کی مدد کا شکریہ</h2>
-    <p>اگر میری مدد آپ کے کام آئی ہو، تو آپ چھوٹی سی چندہ دے کر میرا ساتھ دے سکتے ہیں۔</p>
-    <div class="number-box">Easypaisa نمبر: 03402432536</div>
-    <p>اپنے Easypaisa ایپ میں جاکر "Send Money" میں یہ نمبر ڈالیں اور رقم بھیجیں۔</p>
-    <div class="qr-code">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=tel:+923402432536" alt="Easypaisa QR Code" />
-      <p>QR کوڈ اسکین کریں اور آسانی سے چندہ بھیجیں۔</p>
-    </div>
+  <main class="card" role="main">
+    <section class="info" aria-label="info">
+      <h1>Scan & Pay — EasyPaisa</h1>
+      <p class="small">نیچے والا QR اسکین کریں یا نمبر copy کر کے EasyPaisa میں "Send Money" میں پیسٹ کریں۔</p>
+
+      <div class="phone-box">
+        <div class="ph" id="phone">+92 340 2432536</div>
+        <button class="btn" id="copyBtn">Copy Number</button>
+        <button class="mutebtn" id="openBtn">Open image</button>
+      </div>
+
+      <hr style="margin:18px 0; border:none; height:1px; background:#f0f5f3;">
+
+      <p><strong>Instructions / ہدایات</strong></p>
+      <ol style="padding-left:18px; margin-top:6px; color:var(--muted)">
+        <li>اس QR کو اسکین کریں — اگر EasyPaisa سیدھا نہیں کھلتا تو نمبر copy کریں۔</li>
+        <li>EasyPaisa app کھولیں → Send Money → Paste کریں یا number دستی طور پر ڈالیں۔</li>
+        <li>Amount درج کریں اور confirm کریں۔</li>
+      </ol>
+
+      <div style="margin-top:12px">
+        <button class="mutebtn" id="downloadBtn">Download QR (PNG)</button>
+        <button class="mutebtn" id="downloadPoster">Download Poster</button>
+      </div>
+
+      <footer>
+        Tip: Put this page link on your WhatsApp / Instagram bio so people can open it and pay easily.
+      </footer>
+    </section>
+
+    <aside class="qr-area" aria-label="QR code">
+      <div id="qrcode" aria-hidden="false"></div>
+      <div class="small ltr">Number: <strong id="phoneTxt">03402432536</strong></div>
+      <div class="actions">
+        <button class="btn" id="scanBtn">Scan QR (Open in new tab)</button>
+      </div>
+    </aside>
   </main>
-  <footer>© 2025 ProCool Solutions</footer>
-</body>
-</html>
+
+<script>
+  // ======== Configuration ========
+  const PHONE = "03402432536"; // <--- change here if needed
+  const DISPLAY_PHONE = "+92 340 2432536";
+
+  // DOM refs
+  const qrcodeEl = document.getElementById('qrcode');
+  const phoneEl = document.getElementById('phone');
+  const phoneTxt = document.getElementById('phoneTxt');
+  const copyBtn = document.getElementById('copyBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const openBtn = document.getElementById('openBtn');
+  const scanBtn = document.getElementById('scanBtn');
+  const posterBtn = document.getElementById('downloadPoster');
+
+  // Fill phone displays
+  phoneEl.textContent = DISPLAY_PHONE;
+  phoneTxt.textContent = PHONE;
+
+  // Create QR content -> we encode plain phone number
+  // If you later get an official EasyPaisa URI, replace the data string with it.
+  const qrData = PHONE;
+
+  // Generate QR
+  let qr = new QRCode(qrcodeEl, {
+    text: qrData,
+    width: 320,
+    height: 320,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
+  });
+
+  // Helper: get dataURL of QR image (qrcode.js creates <img> or <canvas> inside container)
+  function getQrDataUrl(){
+    // find an img or canvas
+    const img = qrcodeEl.querySelector('img');
+    if(img && img.src && img.src.indexOf('data:')===0) return img.src;
+    const canvas = qrcodeEl.querySelector('canvas');
+    if(canvas) return canvas.toDataURL('image/png');
+    return null;
+  }
+
+  // Copy number
+  copyBtn.addEventListener('click', async ()=> {
+    try{
+      await navigator.clipboard.writeText(PHONE);
+      copyBtn.textContent = "Copied ✓";
+      setTimeout(()=> copyBtn.textContent = "Copy Number", 1500);
+    }catch(e){
+      alert("Copy failed — please copy manually: " + PHONE);
+    }
+  });
+
+  // Download QR
+  downloadBtn.addEventListener('click', ()=> {
+    const dataUrl = getQrDataUrl();
+    if(!dataUrl){ alert("QR image not ready."); return; }
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = `qr_${PHONE}.png`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  });
+
+  // Open QR image in new tab (for quick scanning)
+  openBtn.addEventListener('click', ()=>{
+    const dataUrl = getQrDataUrl();
+    if(!dataUrl){ alert("QR image not ready."); return; }
+    window
